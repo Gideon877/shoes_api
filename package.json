@@ -1,0 +1,39 @@
+{
+  "name": "shoes_api",
+  "version": "1.0.0",
+  "description": "shoe RESTful api",
+  "main": "index.js",
+  "scripts": {
+      "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Thabang Gideon Magaola",
+  "license": "ISC",
+  "dependencies": {
+    "body": "^5.1.0",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "express-flash": "0.0.2",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.4",
+    "mongoose": "^4.11.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "engine": {
+    "node": "v4.2.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gideon877/shoes_api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Gideon877/shoes_api/issues"
+  },
+  "homepage": "https://github.com/Gideon877/shoes_api#readme",
+  "keywords": [
+    "RESTful",
+    "API"
+  ]
+}
