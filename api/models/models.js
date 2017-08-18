@@ -5,11 +5,11 @@ module.exports = function(mongoUrl){
     mongoose.connect(mongoUrl);
 
     const Shoes = mongoose.model('Shoes', {
-        color: String,
         brand: String,
+        color: String,
         price: Number,
-        in_stock: Number,
-        size: Number
+        size: Number,
+        in_stock: Number
     });
 
     return {

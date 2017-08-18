@@ -5,7 +5,7 @@ const flash = require('express-flash');
 const session = require('express-session');
 
 
-const ShoeRoutes = require('./api/routes/main');
+const ShoeRoutes = require('./api/controllers/main');
 const Models = require('./api/models/models');
 const models = Models(process.env.MONGO_DB_URL || 'mongodb://localhost/shoes');
 const myRoutes = ShoeRoutes(models);
@@ -27,22 +27,30 @@ app.use(bodyParser.json())
 app.use(session({ secret: 'Thabang', cookie: { maxAge: 60000 * 30}, resave: true, saveUninitialized: true}));
 app.use(flash()); // set up http session
 
+// POST	/api/shoes/sold/:id	Update the stock levels when a shoe is sold
+
+
 
 // GET	/api/shoes	List all shoes in stock
-// GET	/api/shoes/brand/:brandname	List all shoes for a given brand
-// GET	/api/shoes/size/:size	List all shoes for a given size
-// GET	/api/shoes/brand/:brandname/size/:size	List all shoes for a given brand and size
-// POST	/api/shoes/sold/:id	Update the stock levels when a shoe is sold
-// POST	/api/shoes	Add a new new shoe to his stock.
-
-
-app.get('/', function(req, res) {
-    res.redirect('/api/shoes')
-})
+app.get('/', function(req, res) {res.redirect('/api/shoes')})
 app.get('/api/shoes', myRoutes.index);
 
+// GET	/api/shoes/brand/:brandname	List all shoes for a given brand
+app.get('/api/shoes/brand/:brandname', myRoutes.brand_search);
+
+// GET	/api/shoes/size/:size	List all shoes for a given size
+app.get('/api/shoes/size/:size', myRoutes.size_search);
 
 
+// GET	/api/shoes/brand/:brandname/size/:size	List all shoes for a given brand and size
+app.get('/api/shoes/brand/:brandname/size/:size',myRoutes.brand_size);
+
+// POST	/api/shoes	Add a new new shoe to his stock.
+app.post('/api/shoes', myRoutes.newStock);
+
+app.use(function(req, res) {
+    res.status(404).send({url: req.originalUrl + ' not found'})
+});
 
 var port = app.get("port");
 
