@@ -27,8 +27,6 @@ app.use(bodyParser.json())
 app.use(session({ secret: 'Thabang', cookie: { maxAge: 60000 * 30}, resave: true, saveUninitialized: true}));
 app.use(flash()); // set up http session
 
-// POST	/api/shoes/sold/:id	Update the stock levels when a shoe is sold
-
 
 
 // GET	/api/shoes	List all shoes in stock
@@ -46,7 +44,10 @@ app.get('/api/shoes/size/:size', myRoutes.size_search);
 app.get('/api/shoes/brand/:brandname/size/:size',myRoutes.brand_size);
 
 // POST	/api/shoes	Add a new new shoe to his stock.
-app.post('/api/shoes', myRoutes.newStock);
+app.post('/api/shoes', myRoutes.new_stock);
+
+// POST	/api/shoes/sold/:id	Update the stock levels when a shoe is sold
+app.post('/api/shoes/sold/:shoe_id', myRoutes.sold);
 
 app.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})

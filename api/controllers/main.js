@@ -14,21 +14,22 @@ module.exports = function(models) {
         })
     };
 
-    const newStock = function(req, res, done) {
+    const new_stock = function(req, res, done) {
+        var stock = req.body;
 
         models.Shoes.create({
-            brand: 'Nike',
-            color: 'Black',
-            price: 879,
-            size: 6,
-            in_stock: 10
+            brand: stock.brand,
+            color: stock.color,
+            price: stock.price,
+            size: stock.size,
+            in_stock: stock.in_stock
         }, function(err, result) {
             if (err) {
                 return done(err);
             }
             console.log('result', result);
-            res.status(200).send(result)
 
+        res.status(200).send(stock)
         });
     };
 
@@ -80,12 +81,37 @@ module.exports = function(models) {
         })
     }
 
+    const sold = function (req, res, done) {
+        var shoe_id = req.params.shoe_id;
+        console.log('shoe_id', shoe_id);
+        models.Shoes.findOne({
+            _id: shoe_id
+        }, function(err, result) {
+            if (err) {
+                return done(err)
+            }
+
+            console.log('Before:', result.in_stock);
+            result.in_stock = result.in_stock - 1;
+            console.log('After', result.in_stock);
+
+            result.save(function(err, result) {
+                if (err) {
+                    return done(err)
+                }
+            });
+
+            res.status(200).send(result.brand + ' size ' + result.size + ', ' + result.color + ' have been sold for R' + result.price + '. Avail in store: ' + result.in_stock);
+        })
+
+    }
 
     return {
         index,
-        newStock,
+        new_stock,
         size_search,
         brand_search,
-        brand_size
+        brand_size,
+        sold
     };
 };
