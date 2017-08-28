@@ -35,7 +35,6 @@ module.exports = function(models) {
 
     const brand_search = function (req, res, done) {
         var brand = req.params.brandname;
-        console.log(brand);
         models.Shoes.find({
             brand:req.params.brandname
         }, function(err, brandsFound) {
@@ -65,8 +64,6 @@ module.exports = function(models) {
         var brand = req.params.brandname;
         var size = req.params.size;
 
-        console.log('Brand', brand, 'size', size);
-
         models.Shoes.find({
             brand: req.params.brandname,
             size:req.params.size
@@ -74,16 +71,13 @@ module.exports = function(models) {
             if (err) {
                 return done(err)
             }
-
-            console.log(brandsFound);
-
             res.status(200).send(brandsFound)
         })
     }
 
     const sold = function (req, res, done) {
         var shoe_id = req.params.shoe_id;
-        console.log('shoe_id', shoe_id);
+
         models.Shoes.findOne({
             _id: shoe_id
         }, function(err, result) {
@@ -91,9 +85,7 @@ module.exports = function(models) {
                 return done(err)
             }
 
-            console.log('Before:', result.in_stock);
             result.in_stock = result.in_stock - 1;
-            console.log('After', result.in_stock);
 
             result.save(function(err, result) {
                 if (err) {
