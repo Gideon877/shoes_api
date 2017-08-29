@@ -13,7 +13,6 @@ $(function() {
     var template_3 = Handlebars.compile(sizeDropdown.innerHTML);
     var MySizeDropdown = document.getElementById('sizes');
 
-    // GET	/api/shoes/brand/:brandname/size/:size	List all shoes for a given brand and size
     // POST	/api/shoes/sold/:id	Update the stock levels when a shoe is sold
     // POST	/api/shoes	Add a new new shoe to his stock.
 
@@ -97,7 +96,13 @@ $(function() {
                                 data
                             });
 
-                            display.innerHTML = tableSearch;
+                            if (data.length <= 0) {
+                                display.innerHTML = 'No stock found.'
+                            }
+
+                            if (data.length > 0) {
+                                display.innerHTML = tableSearch;
+                            }
                         }
                     });
                 }
@@ -120,7 +125,14 @@ $(function() {
                     var tableSearch = template({
                         data
                     });
-                    display.innerHTML = tableSearch;
+
+                    if (data.length <= 0) {
+                        display.innerHTML = 'No stock found.'
+                    }
+
+                    if (data.length > 0) {
+                        display.innerHTML = tableSearch;
+                    }
                 }
 
                 if (theBrand !== null) {
@@ -132,7 +144,13 @@ $(function() {
                                 data
                             });
 
-                            display.innerHTML = tableSearch;
+                            if (data.length <= 0) {
+                                display.innerHTML = 'No stock found.'
+                            }
+
+                            if (data.length > 0) {
+                                display.innerHTML = tableSearch;
+                            }
                         }
                     });
                 }
@@ -140,4 +158,34 @@ $(function() {
         });
     });
 
+    // GET	/api/shoes/brand/:brandname/size/:size	List all shoes for a given brand and size
+    $('.form-control').on('change', function(e) {
+        var brandInput = e.target.value;
+        var myName = brandInput.toLowerCase();
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+        var brand = capitalizeFirstLetter(myName)
+        theBrand = brand
+        $.ajax({
+            type: 'GET',
+            url: home_page + 'brand/' + brand,
+            success: function(data) {
+
+                var tableSearch = template({
+                    data
+                });
+
+                if (data.length <= 0) {
+                    display.innerHTML = 'No stock found.'
+                }
+
+                if (data.length > 0) {
+                    display.innerHTML = tableSearch;
+                }
+            }
+        })
+
+    })
 });

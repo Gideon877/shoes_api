@@ -7,8 +7,7 @@ module.exports = function(models) {
             if (err) {
                 return done(err)
             }
-
-            console.log(foundStock);
+            console.log('Home Page');
             res.status(200).send(foundStock)
 
         })
@@ -27,8 +26,7 @@ module.exports = function(models) {
             if (err) {
                 return done(err);
             }
-            console.log('result', result);
-
+            console.log('Added new stock');
         res.status(200).send(stock)
         });
     };
@@ -41,6 +39,7 @@ module.exports = function(models) {
             if (err) {
                 return done(err)
             }
+            console.log('Searched for a shoe brand');
             res.status(200).send(brandsFound)
         })
 
@@ -55,6 +54,7 @@ module.exports = function(models) {
             if (err) {
                 return done(err)
             }
+            console.log('Searched for a shoe size');
             res.status(200).send(brandsFound)
         })
 
@@ -71,6 +71,7 @@ module.exports = function(models) {
             if (err) {
                 return done(err)
             }
+            console.log('Brand and size send.');
             res.status(200).send(brandsFound)
         })
     }
@@ -92,7 +93,7 @@ module.exports = function(models) {
                     return done(err)
                 }
             });
-
+            console.log('Sold a shoe');
             res.status(200).send(result.brand + ' size ' + result.size + ', ' + result.color + ' have been sold for R' + result.price + '. Avail in store: ' + result.in_stock);
         })
 
