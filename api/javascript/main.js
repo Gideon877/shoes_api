@@ -20,25 +20,28 @@ $(function() {
     var $size = $('#inputSize');
     var $price = $('#inputPrice');
     var $instock = $('#inputInstock');
-    console.log($brand.val());
+
     $('#regBtn').on('click', function(){
         var stock = {
             brand: $brand.val(),
             color: $color.val(),
             price: $price.val(),
             size: $size.val(),
-            instock: $in_stock.val()
+            in_stock: $instock.val()
         }
-        console.log(stock.length);
+        $.ajax({
+            type: 'POST',
+            url: home_page,
+            data: stock,
+            success: function (data) {
+                alert('New stock added!')
+
+            },
+            error: function() {
+                alert('error saving stock.');
+            }
+        })
     })
-    // $.ajax({
-    //     type: 'POST',
-    //     url: home_page,
-    //     success: function (data) {
-    //         console.log(data);
-    //
-    //     }
-    // })
 
 
     // GET	/api/shoes	List all shoes in stock
@@ -59,7 +62,7 @@ $(function() {
                 });
             }
 
-            data = sortJSON(data, 'brand', '321');
+            data = sortJSON(data, 'brand', '123');
 
             //Display all available stock
             var tableSearch = template({

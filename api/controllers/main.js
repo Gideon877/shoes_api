@@ -16,25 +16,64 @@ module.exports = function(models) {
     const new_stock = function(req, res, done) {
         var stock = req.body;
 
-        models.Shoes.create({
+        //capitalize color and brand
+        var brand = stock.brand.toLowerCase();
+        var color = stock.color.toLowerCase();
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+        stock.brand = capitalizeFirstLetter(brand);
+        stock.color = capitalizeFirstLetter(color);
+        //search in the database if brand, size price and color exists
+        models.Shoes.findOne({
             brand: stock.brand,
             color: stock.color,
             price: stock.price,
-            size: stock.size,
-            in_stock: stock.in_stock
-        }, function(err, result) {
+            size: stock.size
+        }, function (err, foundResults) {
             if (err) {
-                return done(err);
+                return done(err)
             }
-            console.log('Added new stock');
-        res.status(200).send(stock)
-        });
+
+            if (!foundResults) {
+                // if not, create a new
+                models.Shoes.create({
+                    brand: stock.brand,
+                    color: stock.color,
+                    price: stock.price,
+                    size: stock.size,
+                    in_stock: stock.in_stock
+                }, function(err, result) {
+                    if (err) {
+                        return done(err);
+                    }
+                    console.log('Added new stock');
+                    res.status(200).send(stock)
+                });
+            }
+            if (foundResults) {
+                //if it exists, update in_stock to a give value,
+
+                foundResults.in_stock = foundResults.in_stock + 10;
+
+                foundResults.save(function(err, noErr) {
+                    if (err) {
+                        return done(err)
+                    }
+                })
+
+                res.status(200).send(foundResults)
+            }
+
+        })
+
     };
 
-    const brand_search = function (req, res, done) {
+    const brand_search = function(req, res, done) {
         var brand = req.params.brandname;
         models.Shoes.find({
-            brand:req.params.brandname
+            brand: req.params.brandname
         }, function(err, brandsFound) {
             if (err) {
                 return done(err)
@@ -45,11 +84,11 @@ module.exports = function(models) {
 
     }
 
-    const size_search = function (req, res, done) {
+    const size_search = function(req, res, done) {
         var size = req.params.size;
 
         models.Shoes.find({
-            size:req.params.size
+            size: req.params.size
         }, function(err, brandsFound) {
             if (err) {
                 return done(err)
@@ -66,7 +105,7 @@ module.exports = function(models) {
 
         models.Shoes.find({
             brand: req.params.brandname,
-            size:req.params.size
+            size: req.params.size
         }, function(err, brandsFound) {
             if (err) {
                 return done(err)
@@ -76,7 +115,7 @@ module.exports = function(models) {
         })
     }
 
-    const sold = function (req, res, done) {
+    const sold = function(req, res, done) {
         var shoe_id = req.params.shoe_id;
 
         models.Shoes.findOne({
