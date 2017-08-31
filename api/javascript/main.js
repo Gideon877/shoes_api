@@ -13,14 +13,53 @@ $(function() {
     var template_3 = Handlebars.compile(sizeDropdown.innerHTML);
     var MySizeDropdown = document.getElementById('sizes');
 
-    // POST	/api/shoes/sold/:id	Update the stock levels when a shoe is sold
     // POST	/api/shoes	Add a new new shoe to his stock.
+
+    var $brand = $('#inputBrand');
+    var $color = $('#inputColor');
+    var $size = $('#inputSize');
+    var $price = $('#inputPrice');
+    var $instock = $('#inputInstock');
+    console.log($brand.val());
+    $('#regBtn').on('click', function(){
+        var stock = {
+            brand: $brand.val(),
+            color: $color.val(),
+            price: $price.val(),
+            size: $size.val(),
+            instock: $in_stock.val()
+        }
+        console.log(stock.length);
+    })
+    // $.ajax({
+    //     type: 'POST',
+    //     url: home_page,
+    //     success: function (data) {
+    //         console.log(data);
+    //
+    //     }
+    // })
+
 
     // GET	/api/shoes	List all shoes in stock
     $.ajax({
         type: 'GET',
         url: home_page,
         success: function(data) {
+            function sortJSON(data, key, way) {
+                return data.sort(function(a, b) {
+                    var x = a[key];
+                    var y = b[key];
+                    if (way === '123') {
+                        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                    }
+                    if (way === '321') {
+                        return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+                    }
+                });
+            }
+
+            data = sortJSON(data, 'brand', '321');
 
             //Display all available stock
             var tableSearch = template({
@@ -57,7 +96,6 @@ $(function() {
             }
             uniQSize.sort();
             uniQBrand.sort();
-
             var tableSearch_2 = template_2({
                 uniQBrand
             });
@@ -159,7 +197,7 @@ $(function() {
     });
 
     // GET	/api/shoes/brand/:brandname/size/:size	List all shoes for a given brand and size
-    $('.form-control').on('change', function(e) {
+    $('#search').on('keyup', function(e) {
         var brandInput = e.target.value;
         var myName = brandInput.toLowerCase();
 
@@ -187,5 +225,23 @@ $(function() {
             }
         })
 
+    })
+
+    // POST	/api/shoes/sold/:id	Update the stock levels when a shoe is sold
+    $('#display').on('click', function(e) {
+        var product_id = e.target.id;
+
+        //btn btn-primary btn-sm
+        $.ajax({
+            type: 'POST',
+            url: home_page + 'sold/' + product_id,
+            success: function(data) {
+                var tableSearch = template({
+                    data
+                });
+
+                display.innerHTML = data
+            }
+        })
     })
 });
