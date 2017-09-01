@@ -4,6 +4,7 @@ $(function() {
     var myInfo = document.getElementById('myTable');
     var template = Handlebars.compile(myInfo.innerHTML);
     var display = document.getElementById('display');
+    var back_home = document.getElementsByClassName('back_home')
 
     var brandDropdown = document.getElementById('brandDropdown');
     var template_2 = Handlebars.compile(brandDropdown.innerHTML);
@@ -34,11 +35,11 @@ $(function() {
             url: home_page,
             data: stock,
             success: function (data) {
-                alert('New stock added!')
+                console.log('New stock added!')
 
             },
             error: function() {
-                alert('error saving stock.');
+                console.log('error saving stock.');
             }
         })
     })
@@ -122,7 +123,6 @@ $(function() {
             type: 'GET',
             url: home_page + 'brand/' + brand,
             success: function(data) {
-                console.log('DATA', data.length);
                 var tableSearch = template({
                     data
                 });
@@ -230,6 +230,7 @@ $(function() {
 
     })
 
+
     // POST	/api/shoes/sold/:id	Update the stock levels when a shoe is sold
     $('#display').on('click', function(e) {
         var product_id = e.target.id;
@@ -243,8 +244,9 @@ $(function() {
                     data
                 });
 
-                display.innerHTML = data
+                display.innerHTML = data + '.<br> <a href="" onClick="window.location.reload()">Search</>';
             }
         })
     })
+
 });

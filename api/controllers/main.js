@@ -46,6 +46,7 @@ module.exports = function(models) {
                     in_stock: stock.in_stock
                 }, function(err, result) {
                     if (err) {
+                        res.status(500).send(err.message)
                         return done(err);
                     }
                     console.log('Added new stock');

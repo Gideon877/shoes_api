@@ -12,3 +12,7 @@ hr {
     clear: both;
     visibility: hidden;
 }
+
+.list-group-item {
+    padding: 1px;
+}

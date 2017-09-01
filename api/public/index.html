@@ -56,6 +56,8 @@
                     <br>
                     <div class="col-md-9">
                         <div id="display"></div>
+                        <div class="back_home"></div>
+
                     </div>
                 </div>
             </div>
@@ -78,36 +80,36 @@
                         </div>
                         <!-- Brand -->
                         <div class="form-group">
-                                <label for="inputBrand" class="col-md-2 control-label">Brand</label>
+                            <label for="inputBrand" class="col-md-2 control-label">Brand</label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control input-sm" id="inputBrand" placeholder="Brand" value="nike" required>
+                                <input type="text" class="form-control input-sm" id="inputBrand" placeholder="Brand" value="" required>
                             </div>
 
-                        <!-- color -->
-                                <label for="inputColor" class="col-md-2 control-label">Color</label>
-                                <div class="col-sm-2">
-                                <input type="text" class="form-control input-sm" id="inputColor" placeholder="Color" value="black" required>
+                            <!-- color -->
+                            <label for="inputColor" class="col-md-2 control-label">Color</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control input-sm" id="inputColor" placeholder="Color" value="" required>
                             </div>
                         </div>
 
                         <!-- price -->
                         <div class="form-group">
-                                <label for="inputPrice" class="col-md-2 control-label">Price</label>
+                            <label for="inputPrice" class="col-md-2 control-label">Price</label>
                             <div class="col-sm-2">
-                                <input type="number" class="form-control input-sm" id="inputPrice" placeholder="Price" min="1" step="0.01" value="859" required>
+                                <input type="number" class="form-control input-sm" id="inputPrice" placeholder="Price" min="1" step="0.01" value="" required>
                             </div>
 
-                        <!-- size -->
-                                <label for="inputSize" class="col-md-2 control-label">Size</label>
+                            <!-- size -->
+                            <label for="inputSize" class="col-md-2 control-label">Size</label>
                             <div class="col-sm-2">
-                                <input type="number" class="form-control input-sm" id="inputSize" placeholder="Size" min="1" max="12" value="6" required>
+                                <input type="number" class="form-control input-sm" id="inputSize" placeholder="Size" min="1" max="12" value="" required>
                             </div>
                         </div>
                         <!-- instock -->
                         <div class="form-group">
-                                <label for="inputInstock" class="col-md-2 control-label">Instock</label>
+                            <label for="inputInstock" class="col-md-2 control-label">Instock</label>
                             <div class="col-sm-2">
-                                <input type="number" class="form-control input-sm" id="inputInstock" placeholder="Instock" min="1" value="3">
+                                <input type="number" class="form-control input-sm" id="inputInstock" placeholder="Instock" min="1" value="">
                             </div>
 
                             <div class="col-sm-2 col-md-offset-2">
@@ -123,13 +125,11 @@
 
     <hr>
 
-
-
     <script src="../javascript/main.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
     <script id="brandDropdown" type="text/x-handlebars-template">
         <div class="btn-group">
-            <a href="#" class="btn btn-primary btn-sm" style="width: 58%;">Brands</a>
+            <a href="#" class="btn btn-primary btn-sm">Brands</a>
             <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
             <ul class="dropdown-menu">
                 {{#each uniQBrand}}
@@ -140,7 +140,7 @@
     </script>
     <script id="sizeDropdown" type="text/x-handlebars-template">
         <div class="btn-group">
-            <a href="#" class="btn btn-primary btn-sm" style="width: 65%;">Sizes</a>
+            <a href="#" class="btn btn-primary btn-sm">Sizes</a>
             <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
             <ul class="dropdown-menu">
                 {{#each uniQSize}}
@@ -155,7 +155,7 @@
         <div class="col-md-3 col-sm-4">
             <div class="panel panel-info">
                 <div class="panel-heading"><b>{{brand}}</b></div>
-                <!-- <div class="panel-body"><img src="https://media.takealotcom/covers_tsins/47793961/47793961-1-zoom.jpg?1494231886" class="img-responsive" style="width:100%" alt="Image"></div> -->
+                <!-- <div class="panel-body"><img src="https://media.takealot.com/covers_tsins/47793961/47793961-1-zoom.jpg?1494231886" class="img-responsive" style="width:100%" alt="Image"></div> -->
                 <div class="panel-footer">
                     <li class="list-group-item">
                         <span class="badge">R{{price}}</span> Price
@@ -164,7 +164,8 @@
                         <span class="badge">{{size}}</span> Size
                     </li>
                     <li class="list-group-item">
-                        <span class="badge" style="background-color: {{color}};">{{color}}</span> Color
+                        <span class="badge" style="background-color: {{color}};">{{color}}</span>Color
+
                     </li>
                     <ul class="list-group">
                         <li class="list-group-item">
