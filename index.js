@@ -35,7 +35,7 @@ app.use(function(req, res, next) {
 })
 
 // GET	/api/shoes	List all shoes in stock
-app.get('/', function(req, res) {res.redirect('/api/shoes')})
+// app.get('/', function(req, res) {res.redirect('/api/shoes')})
 app.get('/api/shoes', myRoutes.index);
 
 // GET	/api/shoes/brand/:brandname	List all shoes for a given brand
