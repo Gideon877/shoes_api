@@ -54,9 +54,9 @@ app.post('/api/shoes', myRoutes.new_stock);
 // POST	/api/shoes/sold/:id	Update the stock levels when a shoe is sold
 app.post('/api/shoes/sold/:shoe_id', myRoutes.sold);
 
-app.use(function(req, res) {
-    res.status(404).send({url: req.originalUrl + ' not found'})
-});
+// app.use(function(req, res) {
+//     res.status(404).send({url: req.originalUrl + ' not found'})
+// });
 
 var port = app.get("port");
 
