@@ -5,8 +5,8 @@ const flash = require('express-flash');
 const session = require('express-session');
 
 
-const ShoeRoutes = require('./api/controllers/main');
-const Models = require('./api/models/models');
+const ShoeRoutes = require('./controllers/main');
+const Models = require('./models/models');
 const models = Models(process.env.MONGO_DB_URL || 'mongodb://localhost/shoes');
 const myRoutes = ShoeRoutes(models);
 const app = express();
