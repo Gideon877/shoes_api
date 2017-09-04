@@ -36,7 +36,7 @@ app.use(function(req, res, next) {
 
 // GET	/api/shoes	List all shoes in stock
 app.get('/api/shoes', myRoutes.index);
-app.post('/', function(req, res) {res.redirect('/api/shoes')})
+app.post('/', function(req, res) {res.redirect('/')})
 
 // GET	/api/shoes/brand/:brandname	List all shoes for a given brand
 app.get('/api/shoes/brand/:brandname', myRoutes.brand_search);
