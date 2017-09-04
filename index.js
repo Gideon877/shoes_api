@@ -35,8 +35,8 @@ app.use(function(req, res, next) {
 })
 
 // GET	/api/shoes	List all shoes in stock
-// app.post('/', function(req, res) {res.redirect('/api/shoes')})
 app.get('/api/shoes', myRoutes.index);
+app.post('/', function(req, res) {res.redirect('/api/shoes')})
 
 // GET	/api/shoes/brand/:brandname	List all shoes for a given brand
 app.get('/api/shoes/brand/:brandname', myRoutes.brand_search);
@@ -54,9 +54,9 @@ app.post('/api/shoes', myRoutes.new_stock);
 // POST	/api/shoes/sold/:id	Update the stock levels when a shoe is sold
 app.post('/api/shoes/sold/:shoe_id', myRoutes.sold);
 
-// app.use(function(req, res) {
-//     res.status(404).send({url: req.originalUrl + ' not found'})
-// });
+app.use(function(req, res) {
+    res.status(404).send({url: req.originalUrl + ' not found'})
+});
 
 var port = app.get("port");
 
