@@ -1,5 +1,5 @@
 $(function() {
-    var home_page = 'https://shoes-8.herokuapp.com/api/shoes/'
+    var home_page = 'https://shoes-8.herokuapp.com/api/shoes'
     //var home_page = 'http://localhost:4040/api/shoes/';
 
     var myInfo = document.getElementById('myTable');
@@ -122,7 +122,7 @@ $(function() {
         theBrand = brand;
         $.ajax({
             type: 'GET',
-            url: home_page + 'brand/' + brand,
+            url: home_page + '/brand/' + brand,
             success: function(data) {
                 var tableSearch = template({
                     data
@@ -132,7 +132,7 @@ $(function() {
                 if (theSize !== null) {
                     $.ajax({
                         type: 'GET',
-                        url: home_page + 'brand/' + theBrand + '/size/' + theSize,
+                        url: home_page + '/brand/' + theBrand + '/size/' + theSize,
                         success: function(data) {
                             var tableSearch = template({
                                 data
@@ -158,7 +158,7 @@ $(function() {
         theSize = size
         $.ajax({
             type: 'GET',
-            url: home_page + 'size/' + size,
+            url: home_page + '/size/' + size,
             success: function(data) {
 
 
@@ -180,7 +180,7 @@ $(function() {
                 if (theBrand !== null) {
                     $.ajax({
                         type: 'GET',
-                        url: home_page + 'brand/' + theBrand + '/size/' + theSize,
+                        url: home_page + '/brand/' + theBrand + '/size/' + theSize,
                         success: function(data) {
                             var tableSearch = template({
                                 data
@@ -212,7 +212,7 @@ $(function() {
         theBrand = brand
         $.ajax({
             type: 'GET',
-            url: home_page + 'brand/' + brand,
+            url: home_page + '/brand/' + brand,
             success: function(data) {
 
                 var tableSearch = template({
@@ -239,7 +239,7 @@ $(function() {
         //btn btn-primary btn-sm
         $.ajax({
             type: 'POST',
-            url: home_page + 'sold/' + product_id,
+            url: home_page + '/sold/' + product_id,
             success: function(data) {
                 var tableSearch = template({
                     data
