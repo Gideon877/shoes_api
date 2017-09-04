@@ -1,5 +1,5 @@
 $(function() {
-    var home_page = 'http://localhost:4040/api/shoes/';
+    var home_page = 'http://localhost:4040/api/shoes/' || 'https://shoes-8.herokuapp.com/';
 
     var myInfo = document.getElementById('myTable');
     var template = Handlebars.compile(myInfo.innerHTML);
