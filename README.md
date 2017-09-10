@@ -1,6 +1,6 @@
 # Shoe API
 
-####that ;
+#### that ;
 
 * List all shoes in stock
 * List all shoes for a given brand
@@ -79,68 +79,19 @@ modules should be able to
   ✓ rejects duplicate
   ✓ update stock when sold
 
-  3 passing (308ms)
+  4 passing (408ms)
 ```
 
 
 ### What does these tests?
 
-1) Takes input, create a new object with the entered number plate to MongoDB with a property of **reg_number**, then check if the object is saved in the database and return result in a variable ```plate```.
+1) 
 
+2)
 
-```javascript
-    it('store Plates to MongoDB', function(done) {
-        models.Plate.create({
-            reg_number: 'CA 987 2899'
-        }, function(err) {
-                models.Plate.findOne({
-                    reg_number: 'CA 987 2899',
-                }, function(err, plate) {
-                    assert.equal("CA 987 2899", plate.reg_number)
-                    done(err);
-                });
-            });
-    });
-```
+3) 
 
-2) Create a new number plate that does not exist in the database.
-
-```javascript
-if (!thePlate){
-   models.Plate.create({
-        reg_number: 'CF 987 2811'
-    }, function(err, result){
-        if (err){
-            return done(err);
-        }
-
-        assert.equal(1, results.length);
-        assert.equal("CF 987 2811", results[0].reg_number);
-        done();
-    });
-}
-
-```
-3) Rejects duplicates (checks if the entered plate have been stored in the database before then return the existing plate object.
-
-```javascript
-    models.Plate.findOne({
-            reg_number: 'CA 987 0000',
-        }, function(err, thePlate){
-            if (err){
-                //test fail if there is an error
-                return done(err)
-            }
-
-            // thePlate is in the Database
-            assert.ok(thePlate !== null);
-            if (thePlate){
-                assert.equal('CA 987 0000', thePlate.reg_number);
-                done();
-            }
-
-        });
-```
+4)
    
    
 ## Running the app locally
@@ -149,9 +100,9 @@ if (!thePlate){
 
 ```$ nodemon``` or ```$ node index.js``` 
 
-* The following message should be displayed  ```Registraion webapp listening at http://:::7000```
+* The following message should be displayed  ```Shoe API server started at http://localhost:4040```
 
-* Then open a new tab on your browser and type this ``` http://localhost:7000/reg_numbers``` and the app will open.
+* Then open a new tab on your browser and type this ``` http://localhost:4040/api/shoes``` and the app will open.
 
 ## Deployment
 
@@ -181,14 +132,14 @@ Enter your Heroku credentials.
 ...
 $ heroku create
 Creating arcane-lowlands-8408... done, stack is cedar
-http://arcane-lowlands-8408.herokuapp.com/ | git@heroku.com:arcane-lowlands-8408.git
+http://shoes-8.herokuapp.com/ | git@heroku.com:shoes-8.git
 Git remote heroku added
 $ git push heroku master
 ...
 -----> Node.js app detected
 ...
 -----> Launching... done
-       http://arcane-lowlands-8408.herokuapp.com deployed to Heroku
+       http://shoes-8.herokuapp.com deployed to Heroku
 
 ```
 
