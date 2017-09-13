@@ -1,7 +1,5 @@
 # Shoe API
 
-## that ;
-
 - List all shoes in stock
 - List all shoes for a given brand
 - List all shoes for a given size
@@ -11,9 +9,9 @@
 
 ## Getting Started
 
-### Backend (Server side).
+- Backend (Server side).
 
-### Frontend (Client side).
+- Frontend (Client side).
 
 Clone or download this [respository](https://github.com/Gideon877/shoes_api.git) to your machine from GitHub.
 
@@ -224,7 +222,7 @@ models.Shoes.find({
 
 ```javascript
 models.Shoes.findOne({
-    _id: 59b8d9951c225a1afa8f2465
+    _id: '59b8d9951c225a1afa8f2465'
 }, function(err, result) {
     if (err) {
         return done(err)
