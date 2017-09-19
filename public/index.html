@@ -34,9 +34,17 @@
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input type="text" class="form-control input-sm" value="" id="search" placeholder="Search">
-                            <span class="input-group-addon input-sm"><i class="glyphicon glyphicon-search"></i></span>
+                            <!-- <input type="text" class="form-control input-sm" value="" id="search" placeholder="Search">
+                            <span class="input-group-addon input-sm"><i class="glyphicon glyphicon-search"></i></span> -->
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-*">
+                        <div id="brands"></div>
+                        <br>
+                        <div id="sizes"></div>
+
                     </div>
                 </div>
             </div>
@@ -44,17 +52,7 @@
             <hr>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-2">
-                        <br>
-                        <h5>Filter</h5>
-                        <br><br>
-                        <div id="brands"></div>
-                        <br>
-                        <div id="sizes"></div>
-
-                    </div>
-                    <br>
-                    <div class="col-md-9">
+                    <div class="col-sm-*">
                         <div id="display"></div>
                         <div class="back_home"></div>
 
@@ -80,39 +78,39 @@
                         </div>
                         <!-- Brand -->
                         <div class="form-group">
-                            <label for="inputBrand" class="col-md-2 control-label">Brand</label>
-                            <div class="col-sm-2">
+                            <label for="inputBrand" class="col-md-2 col-sm-3 col-xs-6 col-sm-3 col-xs-6 control-label">Brand</label>
+                            <div class="col-md-2 col-sm-3 col-xs-6">
                                 <input type="text" class="form-control input-sm" id="inputBrand" placeholder="Brand" value="" required>
                             </div>
 
                             <!-- color -->
-                            <label for="inputColor" class="col-md-2 control-label">Color</label>
-                            <div class="col-sm-2">
+                            <label for="inputColor" class="col-md-2 col-sm-3 col-xs-6 control-label">Color</label>
+                            <div class="col-md-2 col-sm-3 col-xs-6">
                                 <input type="text" class="form-control input-sm" id="inputColor" placeholder="Color" value="" required>
                             </div>
                         </div>
 
                         <!-- price -->
                         <div class="form-group">
-                            <label for="inputPrice" class="col-md-2 control-label">Price</label>
-                            <div class="col-sm-2">
+                            <label for="inputPrice" class="col-md-2 col-sm-3 col-xs-6 control-label">Price</label>
+                            <div class="col-md-2 col-sm-3 col-xs-6">
                                 <input type="number" class="form-control input-sm" id="inputPrice" placeholder="Price" min="1" step="0.01" value="" required>
                             </div>
 
                             <!-- size -->
-                            <label for="inputSize" class="col-md-2 control-label">Size</label>
-                            <div class="col-sm-2">
+                            <label for="inputSize" class="col-md-2 col-sm-3 col-xs-6 control-label">Size</label>
+                            <div class="col-md-2 col-sm-3 col-xs-6">
                                 <input type="number" class="form-control input-sm" id="inputSize" placeholder="Size" min="1" max="12" value="" required>
                             </div>
                         </div>
                         <!-- instock -->
                         <div class="form-group">
-                            <label for="inputInstock" class="col-md-2 control-label">Instock</label>
-                            <div class="col-sm-2">
+                            <label for="inputInstock" class="col-md-2 col-sm-3 col-xs-6 control-label">Instock</label>
+                            <div class="col-md-2 col-sm-3 col-xs-6">
                                 <input type="number" class="form-control input-sm" id="inputInstock" placeholder="Instock" min="1" value="">
                             </div>
 
-                            <div class="col-sm-2 col-md-offset-2">
+                            <div class="col-md-2 col-sm-3 col-xs-6 col-md-offset-2">
                                 <button type="reset" class="btn btn-default btn-sm" onClick="window.location.reload()">Cancel</button>
                                 <button type="submit" class="btn btn-primary btn-sm" id="regBtn">Submit</button>
                             </div>
@@ -129,30 +127,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
     <script id="brandDropdown" type="text/x-handlebars-template">
         <div class="btn-group">
-            <a href="#" class="btn btn-primary btn-sm">Brands</a>
-            <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                {{#each uniQBrand}}
-                <li class="panel-button"><a href="#">{{this}}</a></li>
-                {{/each}}
-            </ul>
+            {{#each uniQBrand}}
+            <a href="#" class="btn btn-default">{{this}}</a>
+            {{/each}}
         </div>
     </script>
     <script id="sizeDropdown" type="text/x-handlebars-template">
         <div class="btn-group">
-            <a href="#" class="btn btn-primary btn-sm">Sizes</a>
-            <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                {{#each uniQSize}}
-                <li class="panel-button"><a href="#">{{this}}</a></li>
-                {{/each}}
-            </ul>
+            {{#each uniQSize}}
+            <a href="#" class="btn btn-default">{{this}}</a>
+            {{/each}}
         </div>
-
     </script>
     <script id="myTable" type="text/x-handlebars-template">
         {{#each data}}
-        <div class="col-md-3 col-sm-4">
+        <div class="col-md-2 col-sm-3 col-xs-6">
             <div class="panel panel-info">
                 <div class="panel-heading"><b>{{brand}}</b></div>
                 <div class="panel-body"><img src="/images/{{brand}}/{{color}}.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
