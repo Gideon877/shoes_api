@@ -1,5 +1,5 @@
 # Shoe API
-
+![Shoe_API Imagae](https://github.com/Gideon877/shoes_api/blob/master/public/images/shoeapi.jpg?raw=true)
 - List all shoes in stock
 - List all shoes for a given brand
 - List all shoes for a given size
