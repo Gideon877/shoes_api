@@ -1,11 +1,4 @@
 # Shoe API
-### Task list
-
-- [x] created a server
-- [x] created a model
-- [x] created a route and controller folder
-- [x] created a public folder
-- [x] created a github repository
 
 ![Shoe_API Imagae](https://github.com/Gideon877/shoes_api/blob/master/public/images/shoeapi.jpg?raw=true)
 - List all shoes in stock
