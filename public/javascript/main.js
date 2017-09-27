@@ -37,15 +37,12 @@ $(function() {
             data: stock,
             success: function (data) {
                 console.log('New stock added!')
-
             },
             error: function() {
                 console.log('error saving stock.');
             }
         })
     })
-
-
     // GET	/api/shoes	List all shoes in stock
     $.ajax({
         type: 'GET',
@@ -145,6 +142,8 @@ $(function() {
                             if (data.length > 0) {
                                 display.innerHTML = tableSearch;
                             }
+                            theBrand = null;
+                            theSize = null;
                         }
                     });
                 }
@@ -160,10 +159,7 @@ $(function() {
             type: 'GET',
             url: home_page + '/size/' + size,
             success: function(data) {
-
-
                 if (theBrand === null) {
-
                     var tableSearch = template({
                         data
                     });
@@ -193,6 +189,9 @@ $(function() {
                             if (data.length > 0) {
                                 display.innerHTML = tableSearch;
                             }
+
+                            theBrand = null;
+                            theSize = null;
                         }
                     });
                 }
@@ -230,7 +229,6 @@ $(function() {
         })
 
     })
-
 
     // POST	/api/shoes/sold/:id	Update the stock levels when a shoe is sold
     $('#display').on('click', function(e) {
