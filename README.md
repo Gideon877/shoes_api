@@ -78,7 +78,7 @@ How to [Install MongoDB](https://www.digitalocean.com/community/tutorials/how-to
 }
 ```
 
-To install all dependencies required for the app to run, on the terminal navigate to the project root, and type `npm install` .
+To install all dependencies required for the app to run, on the terminal navigate to the shoes_api folder, and type `npm install` .
 
 #### Mocha Setup
 
@@ -91,8 +91,9 @@ $ sudo npm install -g mocha
 ```
 
 ## Running the tests
+if you are using windows OS, first you need to get the mongodb server running.
 
-Run `$ mocha` from app directory terminal window in the project directory and this will be your results;
+In the CLI navigate to the shoes_api and run/type `$ mocha` and this will be your results;
 
 ```bash
 modules should be able to
@@ -108,147 +109,9 @@ modules should be able to
   8 passing (247ms)
 ```
 
-### What does these tests?
-
-1) save default stock to MongoDB
-
-```javascript
-beforeEach(function(done) {
-    models.Shoes.remove({}, function(err) {
-        if (err) {
-            done(err)
-        }
-        models.Shoes.create({
-            brand: 'Puma',
-            color: 'black',
-            price: 899,
-            size: 5,
-            in_stock: 1
-        }, {
-            brand: 'Puma',
-            color: 'white',
-            price: 899,
-            size: 6,
-            in_stock: 3
-        }, {
-            brand: 'Nike',
-            color: 'black',
-            price: 899,
-            size: 6,
-            in_stock: 2
-        }, function(err) {
-            done(err);
-        });
-    });
-});
-```
-
-2) add new shoe to the stock
-
-```javascript
-models.Shoes.create({
-    brand: 'King',
-    color: 'red',
-    price: 599,
-    size: 7,
-    in_stock: 1
-}, function(err, result) {
-    if (err) {
-        return done(err);
-    }
-});
-```
-
-3) check if added new shoe exists in the stock
-
-```javascript
-models.Shoes.findOne({
-    brand: 'Puma',
-    color: 'black',
-    price: 899,
-    size: 5,
-    in_stock: 1
-}, function(err, theShoes) {
-    if (err) { //test fail if there is an error
-        return done(err)
-    }
-    // theShoes is not in the Database
-    assert.ok(theShoes !== null);
-
-});
-```
-
-4) show all saved stock in the MongoDB
-
-```javascript
-models.Shoes.find({}, function(err, stock) {
-    if (err) {
-        return done(err)
-    }
-    assert.equal(3, stock.length);
-    done();
-})
-```
-
-5) find all shoes with selected brand
-
-```javascript
-models.Shoes.find({
-    brand: 'King'
-}, function(err, result) {
-    if (err) {
-        return done(err)
-    }
-})
-```
-
-6) find all shoes with selected size
-
-```javascript
-models.Shoes.find({
-    size: 6
-}, function(err, result) {
-    if (err) {
-        return done(err)
-    }
-})
-```
-
-7) find all shoes with selected brand and size
-
-```javascript
-models.Shoes.find({
-    brand: 'Puma',
-    size: 5
-}, function(err, result) {
-    if (err) {
-        return done(err)
-    }
-})
-```
-
-8) remove unavailable stock in the database
-
-```javascript
-models.Shoes.findOne({
-    _id: '59b8d9951c225a1afa8f2465'
-}, function(err, result) {
-    if (err) {
-        return done(err)
-    }
-    if (result.in_stock < 1) {
-        result.remove(function(err, check) {
-            if (err) {
-                return done(err)
-            }
-        })
-    }
-});
-```
-
 ## Running the app locally
 
-- In the command line, navigate to the project working folder.Once you are in the appropriate folder input this command
+- In the command line, navigate to the shoes_api directory. Once you are in the appropriate directory input this command
 
 `$ nodemon` or `$ node index.js`
 
@@ -273,27 +136,12 @@ Then start your app locally using `heroku local` command which is installed as a
 
 `$ heroku local web` Your app should now be running on <http://localhost:5000/>.
 
-#### Deploying App on Heroku
+The shoes api App is deployed on [Heroku](https://shoes-8.herokuapp.com)
 
-```bash
-$ git add .
-$ git commit -m "Added a Procfile."
-$ heroku login
-Enter your Heroku credentials.
-...
-$ heroku create
-Creating arcane-lowlands-8408... done, stack is cedar
-http://shoes-8.herokuapp.com/ | git@heroku.com:shoes-8.git
-Git remote heroku added
-$ git push heroku master
-...
------> Node.js app detected
-...
------> Launching... done
-       http://shoes-8.herokuapp.com deployed to Heroku
-```
-
-To open the app in your browser, type `$ heroku open` .
+###### To open the app locally;
+  - first you need to navigate to your shoes_api directory on the terminal.
+  - run the server using `$ heroku open` command.
+  - navigate to your web browser and type <http://localhost:5000/> on the url input.
 
 ## Built With
 
