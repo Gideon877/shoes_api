@@ -121,7 +121,7 @@ modules should be able to
 
 ## Deployment
 
-The app is deployed at Heroku and gitHub. Use mLab to deploy your application.
+The app is deployed at Heroku and gitHub. The app also use mLab database.
 
 ### Prerequisites
 
@@ -155,7 +155,7 @@ The shoes api App is deployed on [Heroku](https://shoes-8.herokuapp.com)
 
 ## Author
 
-- **Thabang Gideon Magaola** - _Initial work_ - [@Gideon](https://github.com/Gideon877)
+- **Thabang Gideon Magaola** - _Initial work_ - [Thabang Gideon](https://github.com/Gideon877)
 
 ## License
 
