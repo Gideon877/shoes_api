@@ -27,13 +27,6 @@ app.use(bodyParser.json())
 app.use(session({ secret: 'Thabang', cookie: { maxAge: 60000 * 30}, resave: true, saveUninitialized: true}));
 app.use(flash()); // set up http session
 
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', "*");
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', '"Origin, X-Requested-With, Content-Type, Accept"');
-  next();
-})
-
 // GET	/api/shoes	List all shoes in stock
 app.get('/api/shoes', myRoutes.index);
 app.post('/', function(req, res) {res.redirect('/')})

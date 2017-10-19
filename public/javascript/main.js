@@ -1,52 +1,48 @@
 $(function() {
-    var home_page = 'https://shoes-8.herokuapp.com/api/shoes'
-    //var home_page = 'http://localhost:4040/api/shoes/';
 
-    var myInfo = document.getElementById('myTable');
-    var template = Handlebars.compile(myInfo.innerHTML);
-    var display = document.getElementById('display');
-    var back_home = document.getElementsByClassName('back_home')
-
-    var brandDropdown = document.getElementById('brandDropdown');
-    var template_2 = Handlebars.compile(brandDropdown.innerHTML);
-    var MyBrandDropdown = document.getElementById('brands');
-
-    var sizeDropdown = document.getElementById('sizeDropdown');
-    var template_3 = Handlebars.compile(sizeDropdown.innerHTML);
-    var MySizeDropdown = document.getElementById('sizes');
+    var myInfo = document.getElementById('myTable'),
+        template = Handlebars.compile(myInfo.innerHTML),
+        display = document.getElementById('display'),
+        back_home = document.getElementsByClassName('back_home'),
+        brandDropdown = document.getElementById('brandDropdown'),
+        template_2 = Handlebars.compile(brandDropdown.innerHTML),
+        MyBrandDropdown = document.getElementById('brands'),
+        sizeDropdown = document.getElementById('sizeDropdown'),
+        template_3 = Handlebars.compile(sizeDropdown.innerHTML),
+        MySizeDropdown = document.getElementById('sizes');
 
     // POST	/api/shoes	Add a new new shoe to his stock.
 
-    var $brand = $('#inputBrand');
-    var $color = $('#inputColor');
-    var $size = $('#inputSize');
-    var $price = $('#inputPrice');
-    var $instock = $('#inputInstock');
+    var $brand = $('#inputBrand'),
+        $color = $('#inputColor'),
+        $size = $('#inputSize'),
+        $price = $('#inputPrice'),
+        $instock = $('#inputInstock');
 
-    $('#regBtn').on('click', function(){
+    $('#regBtn').on('click', function() {
         var stock = {
             brand: $brand.val(),
             color: $color.val(),
             price: $price.val(),
             size: $size.val(),
             in_stock: $instock.val()
-        }
+        };
         $.ajax({
             type: 'POST',
-            url: home_page,
+            url: '/api/shoes',
             data: stock,
-            success: function (data) {
-                console.log('New stock added!')
+            success: function(data) {
+                console.log('Successfully added new stock.');
             },
             error: function() {
                 console.log('error saving stock.');
             }
-        })
-    })
+        });
+    });
     // GET	/api/shoes	List all shoes in stock
     $.ajax({
         type: 'GET',
-        url: home_page,
+        url: '/api/shoes',
         success: function(data) {
             function sortJSON(data, key, way) {
                 return data.sort(function(a, b) {
@@ -119,29 +115,30 @@ $(function() {
         theBrand = brand;
         $.ajax({
             type: 'GET',
-            url: home_page + '/brand/' + brand,
+            url: '/api/shoes/brand/' + brand,
             success: function(data) {
                 var tableSearch = template({
                     data
                 });
                 display.innerHTML = tableSearch;
-
+                // GET	/api/shoes/brand/:brandname/size/:size	List all shoes for a given brand and size
                 if (theSize !== null) {
                     $.ajax({
                         type: 'GET',
-                        url: home_page + '/brand/' + theBrand + '/size/' + theSize,
+                        url: '/api/shoes/brand/' + theBrand + '/size/' + theSize,
                         success: function(data) {
                             var tableSearch = template({
                                 data
                             });
 
                             if (data.length <= 0) {
-                                display.innerHTML = 'No stock found.'
+                                display.innerHTML = 'No stock found.';
                             }
 
                             if (data.length > 0) {
                                 display.innerHTML = tableSearch;
                             }
+                            //reset Dropdown values to null
                             theBrand = null;
                             theSize = null;
                         }
@@ -157,7 +154,7 @@ $(function() {
         theSize = size
         $.ajax({
             type: 'GET',
-            url: home_page + '/size/' + size,
+            url: '/api/shoes/size/' + size,
             success: function(data) {
                 if (theBrand === null) {
                     var tableSearch = template({
@@ -172,24 +169,24 @@ $(function() {
                         display.innerHTML = tableSearch;
                     }
                 }
-
+                // GET	/api/shoes/brand/:brandname/size/:size	List all shoes for a given brand and size
                 if (theBrand !== null) {
                     $.ajax({
                         type: 'GET',
-                        url: home_page + '/brand/' + theBrand + '/size/' + theSize,
+                        url: '/api/shoes/brand/' + theBrand + '/size/' + theSize,
                         success: function(data) {
                             var tableSearch = template({
                                 data
                             });
 
                             if (data.length <= 0) {
-                                display.innerHTML = 'No stock found.'
+                                display.innerHTML = 'No stock found.';
                             }
 
                             if (data.length > 0) {
                                 display.innerHTML = tableSearch;
                             }
-
+                            //reset Dropdown values to null
                             theBrand = null;
                             theSize = null;
                         }
@@ -199,37 +196,6 @@ $(function() {
         });
     });
 
-    // GET	/api/shoes/brand/:brandname/size/:size	List all shoes for a given brand and size
-    $('#search').on('keyup', function(e) {
-        var brandInput = e.target.value;
-        var myName = brandInput.toLowerCase();
-
-        function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-        var brand = capitalizeFirstLetter(myName)
-        theBrand = brand
-        $.ajax({
-            type: 'GET',
-            url: home_page + '/brand/' + brand,
-            success: function(data) {
-
-                var tableSearch = template({
-                    data
-                });
-
-                if (data.length <= 0) {
-                    display.innerHTML = 'No stock found.'
-                }
-
-                if (data.length > 0) {
-                    display.innerHTML = tableSearch;
-                }
-            }
-        })
-
-    })
-
     // POST	/api/shoes/sold/:id	Update the stock levels when a shoe is sold
     $('#display').on('click', function(e) {
         var product_id = e.target.id;
@@ -237,15 +203,13 @@ $(function() {
         //btn btn-primary btn-sm
         $.ajax({
             type: 'POST',
-            url: home_page + '/sold/' + product_id,
+            url: '/api/shoes/sold/' + product_id,
             success: function(data) {
                 var tableSearch = template({
                     data
                 });
-
                 display.innerHTML = data + '.<br> <a href="" onClick="window.location.reload()">Search</>';
             }
-        })
-    })
-
+        });
+    });
 });
