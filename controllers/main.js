@@ -1,4 +1,5 @@
 'use strict';
+/*
 module.exports = function(models) {
 
     const index = function(req, res, done) {
@@ -156,3 +157,4 @@ module.exports = function(models) {
         sold
     };
 };
+*/
