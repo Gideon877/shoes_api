@@ -3,8 +3,6 @@ const moment = require('moment');
 const _ = require('lodash');
 module.exports = function(models) {
     const Shoe = models.Shoe;
-    const Type = models.Type;
-    
     // crud
     const Add = async () => {
         try {
@@ -16,12 +14,6 @@ module.exports = function(models) {
                     created: moment.utc(),
                     last_updated: moment.utc()
                 },
-            }) || {};
-    
-            // console.log('main:', main);
-    
-            let type = await Type.create({
-                mainId: main._id,
                 stock: [
                     {
                         size: 5,
@@ -58,7 +50,6 @@ module.exports = function(models) {
     const Delete = async () => {
         try {
             let main = await Shoe.remove();
-            let type = await Type.remove();
 
             return {
                 main, type
@@ -71,7 +62,6 @@ module.exports = function(models) {
     const Find = async () => {
         try {
             let main = await Shoe.find();
-            let type = await Type.find();
 
             
 

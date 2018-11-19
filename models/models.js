@@ -11,11 +11,7 @@ module.exports = function(mongoUrl){
         timestamp: {
             created: String,
             last_updated: String
-        }
-    })
-
-    const Type = mongoose.model('Type', {
-        mainId: { type: String, required: true},
+        },
         stock: [
             {
                 size: { type: Number, required: true},
@@ -26,29 +22,7 @@ module.exports = function(mongoUrl){
     })
 
     return {
-        Shoe,
-        Type
+        Shoe
     };
 
 };
-
-// Shoe = {
-//     brand: 'Nike',
-//     price: 399,
-//     release_date: String,
-//     timestamp: {
-//         created: String,
-//         last_updated: String
-//     },
-//     _id: '2323'
-// }
-
-// type = {
-//     typeId: '2323',
-//     stock: {
-//         size: 2,
-//         color: 'green',
-//         qty: 3
-//     }
-
-// }
