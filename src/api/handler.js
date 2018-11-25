@@ -9,15 +9,21 @@ module.exports = function(models) {
     const getShoes = async (req, res, done) => {
         try {
             console.log('Hello')
-            let result = await Steps.Add();
-            console.log('result', result)
+            let result = await Steps.Find();
+            console.log('----', result);
             res.status(200).send(result);
 
         } catch (error) {
+            console.log(error)
             res.status(400).send(error);
             
         }
     };
+
+    const purchaseShoe = async (req, res, done) => {
+        const { brand, _id } = req.body;
+
+    }
     
 
     return {
