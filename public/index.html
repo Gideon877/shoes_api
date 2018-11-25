@@ -14,6 +14,8 @@
       crossorigin="anonymous"
     ></script>
     <script src="css/semantic/semantic.js"></script>
+    <script src="lodash.min.js"></script>
+    <script src="handlebars-v4.0.5.js"></script>
     <link
       href="https://fonts.googleapis.com/css?family=Crimson+Text|Hind+Siliguri|Libre+Baskerville|Lora|Noto+Serif|PT+Sans+Narrow|Playfair+Display"
       rel="stylesheet"
@@ -22,9 +24,9 @@
   </head>
 
   <body>
-      <br>
+    <br />
     <div class="ui container">
-        <!-- menu tab -->
+      <!-- menu tab -->
       <div class="ui icon menu">
         <div class="item"><i class="home icon"></i></div>
         <div class="item"><i class="info icon"></i> <a href="#"></a></div>
@@ -58,22 +60,72 @@
       <br />
 
       <!-- display cards -->
-      <div class="ui four stackable  cards">
-        <div class="card">
-          <div class="image"><img src="./images/Adidas/Purple.jpg" /></div>
+      <div id="showStockDiv"></div>
+      <div id="showShoeDiv"></div>
+
+      
+      <script id="showStock" type="text/x-handlebars-template">
+        <div class="ui four stackable cards">
+            {{#each data}}
+          <div class="card">
+              <div class="image"><img src="./images/{{brand}}/{{color}}.jpg" alt=""/></div>
+              <div class="content">
+                  <div class="header">{{brand}}</div>
+                  <div class="meta">R{{price}}</div>
+                  <div class="description">
+                          <b>Released date:</b> {{release_date}}
+                  </div>
+              </div>
+              <div class="extra content">
+                  <span class="right floated"><a href="" style="text-transform: uppercase;">Available: {{in_stock}} </a> </span>
+                  <span style="color: rgba(24, 123, 236, 0.87)"><a href="#" id="{{_id}}"><i id="{{_id}}" class="cart arrow down icon"></i><b id="{{_id}}">VIEW</b></a> </span>
+              </div>
+
+          </div>
+          {{/each}}
+        </div>
+      </script>
+
+
+
+      <script id="showShoe" type="text/x-handlebars-template">
+      <div class="ui divided items">
+          {{#each data}}
+        <div class="item">
+          <div class="image"><img src="./images/{{brand}}/{{color}}.jpg" /></div>
           <div class="content">
-            <div class="header">Addidas</div>
-            <div class="meta"><a>R 1999.99</a></div>
-            <div class="description">
-              Released: Sun Nov 18 2018 20:41:50 GMT+0000
+            <a class="header">{{brand}}</a>
+            <div class="meta"><span class="cinema">R{{price}}</span></div>
+            <div class="description"><p></p></div>
+            <div class="extra">
+              <!-- <div id="buy" class="ui right floated primary button" id="{{_id}}">
+                <b id="{{_id}}">Purchase</b> <i class="right chevron icon" id="{{_id}}"></i>
+              </div> -->
+              
+              <select class="ui selection dropdown" id="my-dropdown">
+                <!-- <option value="">Size</option> -->
+                {{#each stock}}
+                <option value="{{this.size}}" id="size">{{this.size}}</option>
+                {{/each}}
+              </select>
             </div>
           </div>
-          <div class="extra content">
-            <span class="right floated">Available: 7 </span>
-            <span style="color: rgba(24, 123, 236, 0.87)"> <i class="cart arrow down icon"></i> <a href="#">Add</a> </span>
-          </div>
         </div>
+        {{/each}}
       </div>
+    </script>
+
+      <!-- <div class="ui tiny modal">
+        <div class="header">Puma</div>
+        <div class="content">
+          <p>Are you sure you want to purchase this item?</p>
+        </div>
+        <div class="actions">
+          <div class="ui approve button">Approve</div>
+          <div class="ui cancel button">Cancel</div>
+        </div>
+      </div> -->
+
     </div>
   </body>
 </html>
