@@ -1,10 +1,11 @@
 'use strict';
+const _ = require('lodash');
 module.exports = function(models) {
     const mongoDb = models.Shoes;
-    const brand_search = function(req, res, done) {
-        var brand = req.params.brandname;
+    const getShoeByBrand = function(req, res, done) {
+        var brand = req.params.brand;
         mongoDb.find({
-            brand: req.params.brandname
+            brand: req.params.brand
         }, function(err, brandsFound) {
             if (err) {
                 return done(err)}
@@ -14,7 +15,7 @@ module.exports = function(models) {
         })
     }
 
-    const size_search = function(req, res, done) {
+    const getShoeBySize = function(req, res, done) {
         var size = req.params.size;
 
         mongoDb.find({
@@ -28,36 +29,44 @@ module.exports = function(models) {
         })
     }
 
-    const brand_size = function(req, res, done) {
-        var brand = req.params.brandname;
-        var size = req.params.size;
+    // const brand_size = function(req, res, done) {
+    //     var brand = req.params.brand;
+    //     var size = req.params.size;
 
-        mongoDb.find({
-            brand: req.params.brandname,
-            size: req.params.size
-        }, function(err, brandsFound) {
-            if (err) {
-                return done(err)}
+    //     mongoDb.find({
+    //         brand: req.params.brand,
+    //         size: req.params.size
+    //     }, function(err, brandsFound) {
+    //         if (err) {
+    //             return done(err)}
 
-            console.log('Brand and size send.');
-            res.status(200).send(brandsFound)
-        })
-    }
+    //         console.log('Brand and size send.');
+    //         res.status(200).send(brandsFound)
+    //     })
+    // }
 
-    const findBrandAndSize = (req, res, done) => {
-        let {brandname, size } = req.params || undefined;
+    const findShoeByBrandAndSize = (req, res) => {
+        let { brand, size } = req.params;
+        // console.log('--', brand, size)
         return mongoDb.find({
-            brand: brandname,
-            size
+            brand
+            // size
         }).then(shoes => {
+            if (size) {
+                let m = shoes;
+                console.log(m, 'M')
+
+                let b = _.get(m, {size});
+                console.log(m, 'sizeeee', b)
+            }
+                // console.log(shoes)
             res.status(200).send(shoes);
         }).catch(e=> res.status(400).send(e))
-
     }
 
     return {
-        size_search,
-        brand_search,
-        brand_size
+        getShoeBySize,
+        getShoeByBrand,
+        findShoeByBrandAndSize
     };
 }

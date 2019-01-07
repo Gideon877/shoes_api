@@ -1,9 +1,9 @@
 const assert = require('assert');
-const Models = require('../models/models');
+const Models = require('../src/models/models');
+const models = Models('mongodb://localhost/shoes-tests');
 
 describe('modules should be able to', function() {
 
-    var models = Models('mongodb://localhost/shoes-tests');
 
     beforeEach(function(done) {
         models.Shoes.remove({}, function(err) {

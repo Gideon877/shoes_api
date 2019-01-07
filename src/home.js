@@ -1,13 +1,13 @@
 'use strict';
 module.exports = function(models) {
+    const mongoDb = models.Shoes;
     const index = function(req, res, done) {
-        models.Shoes.find({}, function(err, foundStock) {
+        mongoDb.find({}, function(err, stock) {
             if (err) {
-                return done(err)}
-
-            console.log('Home Page');
-            res.status(200).send(foundStock)
-        })
+                res.status(400).send(err);
+            }
+            res.status(200).send(stock);
+        });
     };
     return {
         index

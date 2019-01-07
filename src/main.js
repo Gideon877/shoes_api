@@ -73,9 +73,9 @@ module.exports = function(models) {
     };
 
     const brand_search = function(req, res, done) {
-        var brand = req.params.brandname;
+        var brand = req.params.brand;
         models.Shoes.find({
-            brand: req.params.brandname
+            brand: req.params.brand
         }, function(err, brandsFound) {
             if (err) {
                 return done(err)
@@ -102,11 +102,11 @@ module.exports = function(models) {
     }
 
     const brand_size = function(req, res, done) {
-        var brand = req.params.brandname;
+        var brand = req.params.brand;
         var size = req.params.size;
 
         models.Shoes.find({
-            brand: req.params.brandname,
+            brand: req.params.brand,
             size: req.params.size
         }, function(err, brandsFound) {
             if (err) {

@@ -58,7 +58,7 @@ $(function() {
             }
 
             data = sortJSON(data, 'brand', '123');
-
+            console.log('data:', data);
             //Display all available stock
             var tableSearch = template({
                 data
@@ -109,7 +109,7 @@ $(function() {
 
     var theBrand = null;
     var theSize = null;
-    // GET	/api/shoes/brand/:brandname	List all shoes for a given brand
+    // GET	/api/shoes/brand/:brand	List all shoes for a given brand
     $('#brands').on('click', function(e) {
         var brand = e.target.text;
         theBrand = brand;
@@ -121,7 +121,7 @@ $(function() {
                     data
                 });
                 display.innerHTML = tableSearch;
-                // GET	/api/shoes/brand/:brandname/size/:size	List all shoes for a given brand and size
+                // GET	/api/shoes/brand/:brand/size/:size	List all shoes for a given brand and size
                 if (theSize !== null) {
                     $.ajax({
                         type: 'GET',
@@ -169,7 +169,7 @@ $(function() {
                         display.innerHTML = tableSearch;
                     }
                 }
-                // GET	/api/shoes/brand/:brandname/size/:size	List all shoes for a given brand and size
+                // GET	/api/shoes/brand/:brand/size/:size	List all shoes for a given brand and size
                 if (theBrand !== null) {
                     $.ajax({
                         type: 'GET',
