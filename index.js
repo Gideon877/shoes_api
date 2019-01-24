@@ -37,7 +37,7 @@ app.use(flash()); // set up http session
 
 // GET	/api/shoes	List all shoes in stock
 app.get('/api/shoes', home.index);
-app.post('/', function(req, res) {res.redirect('/')})
+// app.post('/', function(req, res) {res.redirect('/')})
 
 // GET	/api/shoes/brand/:brand	List all shoes for a given brand
 app.get('/api/shoes/brand/:brand', search.getShoeByBrand);

@@ -58,7 +58,7 @@ $(function() {
             }
 
             data = sortJSON(data, 'brand', '123');
-            console.log('data:', data);
+            // console.log('data:', data);
             //Display all available stock
             var tableSearch = template({
                 data
@@ -103,7 +103,7 @@ $(function() {
             });
 
             MyBrandDropdown.innerHTML = tableSearch_2;
-            MySizeDropdown.innerHTML = tableSearch_3;
+            // MySizeDropdown.innerHTML = tableSearch_3;
         }
     });
 
@@ -113,6 +113,74 @@ $(function() {
     $('#brands').on('click', function(e) {
         var brand = e.target.text;
         theBrand = brand;
+
+        if(brand === 'All') {
+            $.ajax({
+                type: 'GET',
+                url: '/api/shoes',
+                success: function(data) {
+                    function sortJSON(data, key, way) {
+                        return data.sort(function(a, b) {
+                            var x = a[key];
+                            var y = b[key];
+                            if (way === '123') {
+                                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                            }
+                            if (way === '321') {
+                                return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+                            }
+                        });
+                    }
+        
+                    data = sortJSON(data, 'brand', '123');
+                    var tableSearch = template({
+                        data
+                    });
+                    display.innerHTML = tableSearch;
+        
+                    var uniQBrand = [],
+                        uniQSize = [];
+                    var brandMap = {},
+                        sizeMap = {};
+        
+                    for (var i = 0; i < data.length; i++) {
+                        var b = data[i].brand,
+                            s = data[i].size;
+                        var foundBrand = false,
+                            foundSize = false;
+        
+                        if (brandMap[b] === undefined) {
+                            brandMap[b] = b;
+                            uniQBrand.push(b);
+                        }
+                        if (sizeMap[s] === undefined) {
+                            sizeMap[s] = s;
+                            uniQSize.push(s);
+                        }
+        
+                    }
+                    //Sort brand in alphabetical order
+                    function sort(a, b) {
+                        return a - b;
+                    }
+                    uniQSize.sort();
+                    uniQBrand.sort();
+                    var tableSearch_2 = template_2({
+                        uniQBrand
+                    });
+        
+                    var tableSearch_3 = template_3({
+                        uniQSize
+                    });
+        
+                    MyBrandDropdown.innerHTML = tableSearch_2;
+                },
+                error: function(error) {
+                    console.log('error:', error)
+                }
+            });
+
+        } else {
         $.ajax({
             type: 'GET',
             url: '/api/shoes/brand/' + brand,
@@ -146,6 +214,8 @@ $(function() {
                 }
             }
         });
+
+    }
     });
 
     // GET	/api/shoes/size/:size	List all shoes for a given size
