@@ -3,19 +3,13 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const flash = require('express-flash');
 const session = require('express-session');
-// Getting routes/controllers
-const Addstock = require('./src/addstock'),
-    Home = require('./src/home'),
-    Purchase = require('./src/purchase'),
-    Search = require('./src/search');
 
-const Models = require('./src/models/models');
-const models = Models(process.env.MONGO_DB_URL || 'mongodb://localhost/shoes');
+const Handler = require('./src/handler');
 
-const addstock = Addstock(models),
-    home = Home(models),
-    purchase = Purchase(models),
-    search = Search(models);
+const Models = require('./src/models/shoes');
+const models = Models(process.env.MONGO_DB_URL || 'mongodb://localhost/shoes_api');
+
+const handler = Handler(models);
 
 const app = express();
 
@@ -36,24 +30,18 @@ app.use(session({ secret: 'Thabang', cookie: { maxAge: 60000 * 30}, resave: true
 app.use(flash()); // set up http session
 
 // GET	/api/shoes	List all shoes in stock
-app.get('/api/shoes', home.index);
-// app.post('/', function(req, res) {res.redirect('/')})
+app.get('/api/shoes', handler.getShoes);
 
 // GET	/api/shoes/brand/:brand	List all shoes for a given brand
-app.get('/api/shoes/brand/:brand', search.getShoeByBrand);
 
 // GET	/api/shoes/size/:size	List all shoes for a given size
-app.get('/api/shoes/size/:size', search.getShoeBySize);
-
 
 // GET	/api/shoes/brand/:brand/size/:size	List all shoes for a given brand and size
-app.get('/api/shoes/brand/:brand/size/:size',search.findShoeByBrandAndSize);
 
 // POST	/api/shoes	Add a new new shoe to his stock.
-app.post('/api/shoes', addstock.new_stock);
+app.post('/api/shoes', handler.addNewStock);
 
 // POST	/api/shoes/sold/:id	Update the stock levels when a shoe is sold
-app.post('/api/shoes/sold/:shoe_id', purchase.sold);
 
 app.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
